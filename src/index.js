@@ -1,17 +1,45 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { countriesData } from './Countries';
+import tenHighestPopulation from './Population';
+const countries = [
+  { name: 'Finland', city: 'Helsinki' },
+  { name: 'Sweden', city: 'Stockholm' },
+  { name: 'Denmark', city: 'Copenhagen' },
+  { name: 'Norway', city: 'Oslo' },
+  { name: 'Iceland', city: 'Reykjavík' },
+]
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// Country component
+const Country = ({ country: { name, city } }) => {
+  return (
+    <div>
+      <h1>{name}</h1>
+      <small>{city}</small>
+    </div>
+  )
+}
+// countries component
+const Countries = ({ countries }) => {
+  const countryList = countries.map((country) => (
+    <Country key={country.name} country={country} />
+  ))
+  return <div>{countryList}</div>
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// The App, or the parent or the container component
+// Functional Component
+const App = () => {
+  return (
+    <div className='app'>
+      <div>
+        <h1>Countries List</h1>
+        <Countries countries={countries} />
+      </div>
+    </div>
+  )
+}
+const root=ReactDOM.createRoot(document.getElementById("root"))
+root.render(<App/>)
+
